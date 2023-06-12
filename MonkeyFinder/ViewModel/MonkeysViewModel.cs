@@ -1,19 +1,33 @@
-﻿namespace MonkeyFinder.ViewModel;
-using MonkeyFinder.Services;
+﻿using MonkeyFinder.Services;
+namespace MonkeyFinder.ViewModel;
+
 
 public partial class MonkeysViewModel : BaseViewModel
 {
     MonkeyService monkeyService;
     public ObservableCollection<Monkey> Monkeys { get; } = new();
 
-    //public Command GetMonkeysCommand { get; }
 
     //telling what it needs to be aware about, for example Monkeys
     public MonkeysViewModel(MonkeyService monkeyService)
     {
         Title = "Monkey Finder";
         this.monkeyService = monkeyService;
-        //GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
+    }
+
+
+
+    [RelayCommand]
+    async Task GoToDetailsAsync(Monkey monkey)
+    {
+        if (monkey is null)
+            return;
+
+        await Shell.Current.GoToAsync(nameof(DetailsPage), true,
+            new Dictionary<string, object>
+            {
+                {"Monkey", monkey}
+            });
     }
 
     [RelayCommand]

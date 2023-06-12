@@ -8,7 +8,7 @@ public class MonkeyService
     HttpClient httpClient;
     public MonkeyService()
     {
-        httpClient = new HttpClient();
+        this.httpClient = new HttpClient();
     }
 
     List<Monkey> monkeyList = new List<Monkey>();
@@ -19,8 +19,9 @@ public class MonkeyService
         {
             return monkeyList;
         }
-        var url = "https://montemagno.com/monkeys.json";
 
+        //online
+        var url = "https://montemagno.com/monkeys.json";        
         var response = await httpClient.GetAsync(url);
 
         if (response.IsSuccessStatusCode)
@@ -28,6 +29,7 @@ public class MonkeyService
             monkeyList = await response.Content.ReadFromJsonAsync<List<Monkey>>(); //takes the info from json and reads the monkeys keys
         }
 
+        //offline
         //different approach if you don't have access to link or trouble with emulator
         //there is imbedded monkeydata.json inside folder "Resources" -> "Raw" -> "monkeydata.json" with all the deitals and can be used with following commands:
 
