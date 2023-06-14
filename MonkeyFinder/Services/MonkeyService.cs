@@ -33,10 +33,10 @@ public class MonkeyService
         //different approach if you don't have access to link or trouble with emulator
         //there is imbedded monkeydata.json inside folder "Resources" -> "Raw" -> "monkeydata.json" with all the deitals and can be used with following commands:
 
-        /*using var stream = await FileSystem.OpenAppPackageFileAsync("monkeydata.json");
+        using var stream = await FileSystem.OpenAppPackageFileAsync("monkeydata.json");
         using var reader = new StreamReader(stream);
         var contents = await reader.ReadToEndAsync();
-        monkeyList = JsonSerializer.Deserialize<List<Monkey>>(contents);*/
+        monkeyList = JsonSerializer.Deserialize<List<Monkey>>(contents);
 
         return monkeyList;
     }
