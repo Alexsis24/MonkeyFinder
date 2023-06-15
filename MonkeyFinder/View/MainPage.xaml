@@ -15,43 +15,48 @@
         RowDefinitions="*,Auto"
         RowSpacing="0">
         
-        <CollectionView 
-            BackgroundColor="MediumPurple"
+        <RefreshView            
             Grid.ColumnSpan="2"
-            ItemsSource="{Binding Monkeys}"
-            SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Monkey">
-                    <Grid Padding="10">
-                        <Frame HeightRequest="125"
-                               Padding="0"
-                               Style="{StaticResource CardView}">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"
-                                        CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                            <Grid Padding="0"
-                                  ColumnDefinitions="125,*">
-                                <Image Aspect="AspectFill"
-                                       Source="{Binding Image}"
-                                       WidthRequest="125"
-                                       HeightRequest="125" />
+            Command="{Binding GetMonkeysCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <ContentView>
+                <CollectionView 
+                    BackgroundColor="MediumPurple"
+                    ItemsSource="{Binding Monkeys}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Monkey">
+                            <Grid Padding="10">
+                                <Frame HeightRequest="125"
+                                       Padding="0"
+                                       Style="{StaticResource CardView}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid Padding="0"
+                                          ColumnDefinitions="125,*">
+                                        <Image Aspect="AspectFill"
+                                               Source="{Binding Image}"
+                                               WidthRequest="125"
+                                               HeightRequest="125" />
 
-                                <VerticalStackLayout Grid.Column="1"
-                                                     Padding="10"
-                                                     VerticalOptions="Center">
-                                    <Label Text="{Binding Name}"
-                                           Style="{StaticResource LargeLabel}"/>
-                                    <Label Text="{Binding Location}"
-                                           Style="{StaticResource MediumLabel}"/>
-                                </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="10"
+                                                             VerticalOptions="Center">
+                                            <Label Text="{Binding Name}"
+                                                   Style="{StaticResource LargeLabel}"/>
+                                            <Label Text="{Binding Location}"
+                                                   Style="{StaticResource MediumLabel}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
                             </Grid>
-                        </Frame>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            
-        </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>            
+                </CollectionView>
+            </ContentView>
+        </RefreshView>
 
         <Button 
             Text="Get Monkeys"
